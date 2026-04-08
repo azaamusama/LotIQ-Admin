@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bell, Search, Settings, HelpCircle } from 'lucide-react';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 export function Topbar() {
   return (

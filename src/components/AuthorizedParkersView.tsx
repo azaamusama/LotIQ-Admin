@@ -17,17 +17,17 @@ import {
   TableHead, 
   TableHeader, 
   TableRow 
-} from './ui/table';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { mockParkers } from '../lib/mock-data';
 import { cn } from '../lib/utils';
 import { 
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "./ui/tooltip"
+} from "@/components/ui/tooltip"
 
 export function AuthorizedParkersView() {
   return (

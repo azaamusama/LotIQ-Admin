@@ -18,13 +18,13 @@ import {
   TableHead, 
   TableHeader, 
   TableRow 
-} from './ui/table';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { mockTowOperators } from '../lib/mock-data';
 import { cn } from '../lib/utils';
-import { Progress } from './ui/progress';
+import { Progress } from '@/components/ui/progress';
 
 export function TowingOperatorsView() {
   return (

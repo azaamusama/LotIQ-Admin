@@ -17,8 +17,8 @@ import { PropertyManagersView } from './components/PropertyManagersView';
 import { AuthorizedParkersView } from './components/AuthorizedParkersView';
 import { VehiclesView } from './components/VehiclesView';
 import { TowingOperatorsView } from './components/TowingOperatorsView';
-import { Toaster } from './components/ui/sonner';
-import { TooltipProvider } from './components/ui/tooltip';
+import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
