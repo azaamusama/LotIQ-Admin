@@ -18,7 +18,6 @@ import { AuthorizedParkersView } from './components/AuthorizedParkersView';
 import { VehiclesView } from './components/VehiclesView';
 import { TowingOperatorsView } from './components/TowingOperatorsView';
 import { Toaster } from './components/ui/sonner';
-import { TooltipProvider } from './components/ui/tooltip';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -74,17 +73,15 @@ export default function App() {
   };
 
   return (
-    <TooltipProvider>
-      <div className="flex min-h-screen bg-background text-foreground font-sans">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <main className="flex-1 flex flex-col min-w-0">
-          <Topbar />
-          <div className="flex-1 overflow-y-auto">
-            {renderView()}
-          </div>
-        </main>
-        <Toaster position="top-right" />
-      </div>
-    </TooltipProvider>
+    <div className="flex min-h-screen bg-background text-foreground font-sans">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <main className="flex-1 flex flex-col min-w-0">
+        <Topbar />
+        <div className="flex-1 overflow-y-auto">
+          {renderView()}
+        </div>
+      </main>
+      <Toaster position="top-right" />
+    </div>
   );
 }

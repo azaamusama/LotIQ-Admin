@@ -23,11 +23,6 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { mockParkers } from '../lib/mock-data';
 import { cn } from '../lib/utils';
-import { 
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "./ui/tooltip"
 
 export function AuthorizedParkersView() {
   return (
@@ -117,30 +112,14 @@ export function AuthorizedParkersView() {
                 <TableCell>
                   <div className="flex items-center gap-1">
                     {parker.flags.map((flag, idx) => (
-                      <span key={idx}>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <div className="p-1 bg-amber-500/10 rounded text-amber-500 cursor-help">
-                              <AlertTriangle className="w-4 h-4" />
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="text-xs">{flag}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </span>
+                      <div key={idx} className="p-1 bg-amber-500/10 rounded text-amber-500" title={flag}>
+                        <AlertTriangle className="w-4 h-4" />
+                      </div>
                     ))}
                     {parker.status === 'restricted' && (
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div className="p-1 bg-destructive/10 rounded text-destructive cursor-help">
-                            <ShieldAlert className="w-4 h-4" />
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p className="text-xs">Account Restricted</p>
-                        </TooltipContent>
-                      </Tooltip>
+                      <div className="p-1 bg-destructive/10 rounded text-destructive" title="Account Restricted">
+                        <ShieldAlert className="w-4 h-4" />
+                      </div>
                     )}
                   </div>
                 </TableCell>
