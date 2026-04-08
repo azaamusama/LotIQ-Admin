@@ -26,7 +26,81 @@ export const mockSignUps: SignUp[] = [
   }
 ];
 
-import { Vehicle, Violation, Property, SignUp } from '../types';
+export const mockManagers: PropertyManager[] = [
+  {
+    id: 'm1',
+    name: 'Sarah Jenkins',
+    email: 'sarah.j@skyline.com',
+    propertiesCount: 3,
+    activeVehicles: 145,
+    status: 'active',
+    lastActivity: '10 mins ago'
+  },
+  {
+    id: 'm2',
+    name: 'Robert Chen',
+    email: 'r.chen@techplaza.io',
+    propertiesCount: 1,
+    activeVehicles: 88,
+    status: 'active',
+    lastActivity: '2 hours ago'
+  }
+];
+
+export const mockParkers: AuthorizedParker[] = [
+  {
+    id: 'ap1',
+    name: 'Alice Cooper',
+    email: 'alice@example.com',
+    vehiclesCount: 2,
+    assignedProperty: 'Skyline Apartments',
+    status: 'active',
+    flags: []
+  },
+  {
+    id: 'ap2',
+    name: 'Bob Marley',
+    email: 'bob@reggae.com',
+    vehiclesCount: 5,
+    assignedProperty: 'Skyline Apartments',
+    status: 'active',
+    flags: ['Too many vehicles']
+  },
+  {
+    id: 'ap3',
+    name: 'Charlie Brown',
+    email: 'charlie@peanuts.com',
+    vehiclesCount: 1,
+    assignedProperty: 'Tech Plaza',
+    status: 'restricted',
+    flags: ['Suspicious activity']
+  }
+];
+
+export const mockTowOperators: TowOperator[] = [
+  {
+    id: 'to1',
+    name: 'Rapid Recovery Towing',
+    phone: '(555) 123-4567',
+    propertiesAssigned: 12,
+    jobsCompleted: 450,
+    acceptanceRate: 0.98,
+    status: 'active',
+    avgResponseTime: '18 mins'
+  },
+  {
+    id: 'to2',
+    name: 'City Wide Impound',
+    phone: '(555) 987-6543',
+    propertiesAssigned: 8,
+    jobsCompleted: 210,
+    acceptanceRate: 0.75,
+    status: 'active',
+    avgResponseTime: '35 mins'
+  }
+];
+
+import { Vehicle, Violation, Property, SignUp, PropertyManager, AuthorizedParker, TowOperator } from '../types';
 
 export const mockVehicles: Vehicle[] = [
   {

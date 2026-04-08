@@ -52,6 +52,37 @@ export interface Camera {
   fov: number; // Field of view in degrees
 }
 
+export interface PropertyManager {
+  id: string;
+  name: string;
+  email: string;
+  propertiesCount: number;
+  activeVehicles: number;
+  status: 'active' | 'inactive';
+  lastActivity: string;
+}
+
+export interface AuthorizedParker {
+  id: string;
+  name: string;
+  email: string;
+  vehiclesCount: number;
+  assignedProperty: string;
+  status: 'active' | 'restricted';
+  flags: string[];
+}
+
+export interface TowOperator {
+  id: string;
+  name: string;
+  phone: string;
+  propertiesAssigned: number;
+  jobsCompleted: number;
+  acceptanceRate: number;
+  status: 'active' | 'inactive';
+  avgResponseTime: string;
+}
+
 export interface ParkingZone {
   id: string;
   name: string;

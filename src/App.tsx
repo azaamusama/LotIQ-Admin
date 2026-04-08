@@ -13,6 +13,10 @@ import { PropertiesView } from './components/PropertiesView';
 import { AnalyticsView } from './components/AnalyticsView';
 import { NewSignUpsView } from './components/NewSignUpsView';
 import { PropertySetupView } from './components/PropertySetupView';
+import { PropertyManagersView } from './components/PropertyManagersView';
+import { AuthorizedParkersView } from './components/AuthorizedParkersView';
+import { VehiclesView } from './components/VehiclesView';
+import { TowingOperatorsView } from './components/TowingOperatorsView';
 import { Toaster } from './components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
 
@@ -46,6 +50,14 @@ export default function App() {
             onComplete={() => setActiveTab('signups')} 
           />
         );
+      case 'managers':
+        return <PropertyManagersView />;
+      case 'parkers':
+        return <AuthorizedParkersView />;
+      case 'vehicles':
+        return <VehiclesView />;
+      case 'towing':
+        return <TowingOperatorsView />;
       default:
         return (
           <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] text-muted-foreground space-y-4">
