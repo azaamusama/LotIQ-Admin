@@ -20,9 +20,26 @@ import { TowingOperatorsView } from './components/TowingOperatorsView';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
-export default function App() {
+import { AuthProvider, useAuth } from '@/lib/auth-context';
+import { LoginView } from './components/LoginView';
+import { Loader2 } from 'lucide-react';
+
+function AppContent() {
+  const { user, isLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedSignUpId, setSelectedSignUpId] = useState<string | null>(null);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginView />;
+  }
 
   const handleStartSetup = (id: string) => {
     setSelectedSignUpId(id);
@@ -58,6 +75,30 @@ export default function App() {
         return <VehiclesView />;
       case 'towing':
         return <TowingOperatorsView />;
+      case 'incidents':
+        return (
+          <div className="p-8 space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight">Incidents</h1>
+                <p className="text-muted-foreground">Monitor and manage reported parking incidents.</p>
+              </div>
+            </div>
+            <div className="grid gap-6">
+              <div className="p-12 border-2 border-dashed rounded-xl flex flex-col items-center justify-center text-center space-y-4">
+                <div className="p-4 bg-muted rounded-full">
+                  <span className="text-4xl">🚨</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold">No active incidents</h3>
+                  <p className="text-sm text-muted-foreground max-w-xs mx-auto">
+                    All clear! There are currently no reported incidents requiring immediate attention.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       default:
         return (
           <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] text-muted-foreground space-y-4">
@@ -74,17 +115,25 @@ export default function App() {
   };
 
   return (
-    <TooltipProvider>
-      <div className="flex min-h-screen bg-background text-foreground font-sans">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <main className="flex-1 flex flex-col min-w-0">
-          <Topbar />
-          <div className="flex-1 overflow-y-auto">
-            {renderView()}
-          </div>
-        </main>
+    <div className="flex min-h-screen bg-background text-foreground font-sans">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <main className="flex-1 flex flex-col min-w-0">
+        <Topbar />
+        <div className="flex-1 overflow-y-auto">
+          {renderView()}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <TooltipProvider>
+        <AppContent />
         <Toaster position="top-right" />
-      </div>
-    </TooltipProvider>
+      </TooltipProvider>
+    </AuthProvider>
   );
 }
