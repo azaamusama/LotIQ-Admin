@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ShieldAlert, Mail, Lock, ArrowLeft, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Label } from './ui/label';
 import { useAuth, UserRole } from '@/lib/auth-context';
 import { motion, AnimatePresence } from 'motion/react';
 
