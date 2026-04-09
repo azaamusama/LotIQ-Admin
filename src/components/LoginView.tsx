@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Label } from './ui/label';
-import { useAuth, UserRole } from '@/lib/auth-context';
+import { useAuth, UserRole } from '../lib/auth-context';
 import { motion, AnimatePresence } from 'motion/react';
 
 type AuthMode = 'login' | 'forgot-password' | 'reset-sent';

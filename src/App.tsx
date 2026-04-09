@@ -17,10 +17,10 @@ import { PropertyManagersView } from './components/PropertyManagersView';
 import { AuthorizedParkersView } from './components/AuthorizedParkersView';
 import { VehiclesView } from './components/VehiclesView';
 import { TowingOperatorsView } from './components/TowingOperatorsView';
-import { Toaster } from '@/components/ui/sonner';
-import { TooltipProvider } from '@/components/ui/tooltip';
+import { Toaster } from './components/ui/sonner';
+import { TooltipProvider } from './components/ui/tooltip';
 
-import { AuthProvider, useAuth } from '@/lib/auth-context';
+import { AuthProvider, useAuth } from './lib/auth-context';
 import { LoginView } from './components/LoginView';
 import { Loader2 } from 'lucide-react';
 
