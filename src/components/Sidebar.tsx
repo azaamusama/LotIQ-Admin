@@ -12,7 +12,11 @@ import {
   History,
   ShieldAlert,
   Search,
-  Settings2
+  Settings2,
+  Clock,
+  CheckCircle2,
+  XCircle,
+  FileText
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -26,21 +30,24 @@ interface SidebarProps {
 
 const menuItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['super_admin', 'reviewer'] },
+  { separator: true, roles: ['super_admin', 'reviewer'] },
+  { id: 'new-signups', label: 'New Sign-Ups', icon: UserPlus, roles: ['super_admin'] },
+  { id: 'property-setup', label: 'Property Setup', icon: Settings2, roles: ['super_admin'] },
+  { separator: true, roles: ['super_admin'] },
+  { id: 'violations-queue', label: 'Violations Queue', icon: ShieldAlert, roles: ['super_admin', 'reviewer'] },
+  { id: 'under-review', label: 'Under Review', icon: Clock, roles: ['super_admin', 'reviewer'] },
+  { id: 'approved-dispatched', label: 'Approved / Dispatched', icon: CheckCircle2, roles: ['super_admin', 'reviewer'] },
+  { id: 'rejected', label: 'Rejected', icon: XCircle, roles: ['super_admin', 'reviewer'] },
+  { separator: true, roles: ['super_admin', 'reviewer'] },
   { id: 'live-parking', label: 'Live Parking', icon: Car, roles: ['super_admin', 'reviewer'] },
-  { id: 'violations', label: 'Violations Queue', icon: ShieldAlert, roles: ['super_admin', 'reviewer'] },
   { id: 'incidents', label: 'Incidents', icon: AlertCircle, roles: ['super_admin', 'reviewer'] },
   { separator: true, roles: ['super_admin', 'reviewer'] },
-  { id: 'signups', label: 'New Sign-Ups', icon: UserPlus, roles: ['super_admin'] },
-  { id: 'setup', label: 'Property Setup', icon: Settings2, roles: ['super_admin'] },
+  { id: 'audit-logs', label: 'Audit Logs', icon: History, roles: ['super_admin'] },
+  { id: 'analytics', label: 'Reports & Analytics', icon: BarChart3, roles: ['super_admin'] },
   { separator: true, roles: ['super_admin'] },
-  { id: 'properties', label: 'Properties', icon: Building2, roles: ['super_admin'] },
+  { id: 'properties', label: 'Live Properties', icon: Building2, roles: ['super_admin'] },
   { id: 'managers', label: 'Property Managers', icon: Users, roles: ['super_admin'] },
   { id: 'parkers', label: 'Authorized Parkers', icon: UserCheck, roles: ['super_admin'] },
-  { id: 'vehicles', label: 'Vehicles', icon: Search, roles: ['super_admin'] },
-  { separator: true, roles: ['super_admin'] },
-  { id: 'towing', label: 'Towing Operations', icon: Truck, roles: ['super_admin'] },
-  { id: 'analytics', label: 'Reports & Analytics', icon: BarChart3, roles: ['super_admin'] },
-  { id: 'audit', label: 'Audit Logs', icon: History, roles: ['super_admin'] },
 ];
 
 export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {

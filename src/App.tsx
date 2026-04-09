@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import { Button } from './components/ui/button';
 import { Sidebar } from './components/Sidebar';
 import { Topbar } from './components/Topbar';
 import { DashboardView } from './components/DashboardView';
@@ -22,12 +23,16 @@ import { TooltipProvider } from './components/ui/tooltip';
 
 import { AuthProvider, useAuth } from './lib/auth-context';
 import { LoginView } from './components/LoginView';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Settings2, History } from 'lucide-react';
+
+import { ViolationsListView } from './components/ViolationsListView';
+import { Violation } from './types';
 
 function AppContent() {
   const { user, isLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedSignUpId, setSelectedSignUpId] = useState<string | null>(null);
+  const [selectedViolation, setSelectedViolation] = useState<Violation | null>(null);
 
   if (isLoading) {
     return (
@@ -46,35 +51,113 @@ function AppContent() {
     setActiveTab('setup');
   };
 
+  const handleReviewViolation = (violation: Violation) => {
+    setSelectedViolation(violation);
+  };
+
   const renderView = () => {
+    if (selectedViolation) {
+      return (
+        <ViolationReviewView 
+          violation={selectedViolation} 
+          onBack={() => setSelectedViolation(null)} 
+        />
+      );
+    }
+
     switch (activeTab) {
       case 'dashboard':
         return <DashboardView />;
+      case 'violations-queue':
+        return (
+          <ViolationsListView 
+            statusFilter="detected" 
+            title="Violations Queue" 
+            onReview={handleReviewViolation} 
+          />
+        );
+      case 'under-review':
+        return (
+          <ViolationsListView 
+            statusFilter="in_review" 
+            title="Under Review" 
+            onReview={handleReviewViolation} 
+          />
+        );
+      case 'approved-dispatched':
+        return (
+          <ViolationsListView 
+            statusFilter="approved" 
+            title="Approved / Dispatched" 
+            onReview={handleReviewViolation} 
+          />
+        );
+      case 'rejected':
+        return (
+          <ViolationsListView 
+            statusFilter="rejected" 
+            title="Rejected Violations" 
+            onReview={handleReviewViolation} 
+          />
+        );
+      case 'audit-logs':
+        return (
+          <div className="p-8 space-y-6">
+            <h1 className="text-3xl font-bold tracking-tight">Audit Logs</h1>
+            <div className="border rounded-xl p-12 flex flex-col items-center justify-center text-center space-y-4 bg-card">
+              <div className="p-4 bg-muted rounded-full">
+                <History className="w-8 h-8 text-muted-foreground" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Audit Logs coming soon</h3>
+                <p className="text-sm text-muted-foreground max-w-xs mx-auto">
+                  Detailed traceability for every decision will be available in the next update.
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      case 'new-signups':
+        return <NewSignUpsView onStartSetup={handleStartSetup} />;
+      case 'property-setup':
+        if (selectedSignUpId) {
+          return (
+            <PropertySetupView 
+              signUpId={selectedSignUpId} 
+              onComplete={() => {
+                setSelectedSignUpId(null);
+                setActiveTab('new-signups');
+              }} 
+            />
+          );
+        }
+        return (
+          <div className="p-8 space-y-6">
+            <h1 className="text-3xl font-bold tracking-tight">Property Setup</h1>
+            <div className="border rounded-xl p-12 flex flex-col items-center justify-center text-center space-y-4 bg-card">
+              <div className="p-4 bg-primary/10 rounded-full">
+                <Settings2 className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">No Property Selected</h3>
+                <p className="text-sm text-muted-foreground max-w-xs mx-auto">
+                  Please select a property from the New Sign-Ups queue to begin configuration.
+                </p>
+              </div>
+              <Button onClick={() => setActiveTab('new-signups')}>Go to Sign-Ups</Button>
+            </div>
+          </div>
+        );
       case 'live-parking':
         return <LiveParkingView />;
-      case 'violations':
-        return <ViolationReviewView />;
       case 'properties':
         return <PropertiesView />;
       case 'analytics':
         return <AnalyticsView />;
-      case 'signups':
-        return <NewSignUpsView onStartSetup={handleStartSetup} />;
-      case 'setup':
-        return (
-          <PropertySetupView 
-            signUpId={selectedSignUpId || 's1'} 
-            onComplete={() => setActiveTab('signups')} 
-          />
-        );
       case 'managers':
         return <PropertyManagersView />;
       case 'parkers':
         return <AuthorizedParkersView />;
-      case 'vehicles':
-        return <VehiclesView />;
-      case 'towing':
-        return <TowingOperatorsView />;
       case 'incidents':
         return (
           <div className="p-8 space-y-6">
