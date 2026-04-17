@@ -158,30 +158,6 @@ function AppContent() {
         return <PropertyManagersView />;
       case 'parkers':
         return <AuthorizedParkersView />;
-      case 'incidents':
-        return (
-          <div className="p-8 space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight">Incidents</h1>
-                <p className="text-muted-foreground">Monitor and manage reported parking incidents.</p>
-              </div>
-            </div>
-            <div className="grid gap-6">
-              <div className="p-12 border-2 border-dashed rounded-xl flex flex-col items-center justify-center text-center space-y-4">
-                <div className="p-4 bg-muted rounded-full">
-                  <span className="text-4xl">🚨</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">No active incidents</h3>
-                  <p className="text-sm text-muted-foreground max-w-xs mx-auto">
-                    All clear! There are currently no reported incidents requiring immediate attention.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
       default:
         return (
           <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] text-muted-foreground space-y-4">

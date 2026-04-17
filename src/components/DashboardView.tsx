@@ -7,7 +7,8 @@ import {
   UserPlus, 
   TrendingUp,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  Clock
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { 
@@ -20,6 +21,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import { cn } from '../lib/utils';
+import { useAuth } from '../lib/auth-context';
 
 const data = [
   { name: '00:00', violations: 4, activity: 20 },
@@ -31,15 +33,28 @@ const data = [
   { name: '23:59', violations: 8, activity: 30 },
 ];
 
-const stats = [
-  { label: 'Active Vehicles', value: '512', icon: Car, trend: '+12%', trendUp: true },
-  { label: 'Violations Today', value: '42', icon: ShieldAlert, trend: '+5%', trendUp: true },
-  { label: 'Approval Rate', value: '94.2%', icon: CheckCircle2, trend: '-0.5%', trendUp: false },
-  { label: 'Active Tows', value: '3', icon: Truck, trend: 'Stable', trendUp: true },
-  { label: 'New Sign-ups', value: '18', icon: UserPlus, trend: '+24%', trendUp: true },
-];
-
 export function DashboardView() {
+  const { user } = useAuth();
+  const isSuperAdmin = user?.role === 'super_admin';
+
+  const stats = [
+    { label: 'Active Vehicles', value: '512', icon: Car, trend: '+12%', trendUp: true },
+    { label: 'Violations Today', value: '42', icon: ShieldAlert, trend: '+5%', trendUp: true },
+    { label: 'Approval Rate', value: '94.2%', icon: CheckCircle2, trend: '-0.5%', trendUp: false },
+    { label: 'Active Tows', value: '3', icon: Truck, trend: 'Stable', trendUp: true },
+    ...(isSuperAdmin 
+      ? [{ label: 'New Sign-ups', value: '18', icon: UserPlus, trend: '+24%', trendUp: true }]
+      : [{ label: 'Avg. Review Time', value: '2.4m', icon: Clock, trend: '-10%', trendUp: true }]
+    ),
+  ];
+
+  const topViolations = [
+    { label: 'Unauthorized Parking', count: 142, color: 'bg-primary' },
+    { label: 'EV not in use', count: 64, color: 'bg-emerald-500' },
+    { label: 'Trash overflow', count: 42, color: 'bg-amber-500' },
+    { label: 'Slip n fall risk', count: 18, color: 'bg-destructive' },
+  ];
+
   return (
     <div className="space-y-8 p-8">
       <div className="flex items-center justify-between">
@@ -109,6 +124,7 @@ export function DashboardView() {
                     borderRadius: '8px',
                     fontSize: '12px'
                   }} 
+                  cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1 }}
                 />
                 <Line 
                   type="monotone" 
@@ -134,12 +150,7 @@ export function DashboardView() {
             <CardTitle className="text-lg font-semibold">Top Violations</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {[
-              { label: 'Unauthorized Parking', count: 142, color: 'bg-primary' },
-              { label: 'Time Limit Exceeded', count: 89, color: 'bg-blue-400' },
-              { label: 'Fire Hydrant Block', count: 34, color: 'bg-destructive' },
-              { label: 'Loading Zone Abuse', count: 21, color: 'bg-amber-500' },
-            ].map((item) => (
+            {topViolations.map((item) => (
               <div key={item.label} className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-medium">{item.label}</span>
@@ -147,7 +158,7 @@ export function DashboardView() {
                 </div>
                 <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
                   <div 
-                    className={cn("h-full rounded-full", item.color)} 
+                    className={cn("h-full rounded-full transition-all duration-500", item.color)} 
                     style={{ width: `${(item.count / 150) * 100}%` }} 
                   />
                 </div>
