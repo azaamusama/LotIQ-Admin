@@ -24,10 +24,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Simulate checking for existing session
-    const savedUser = localStorage.getItem('lotiq_user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    // const savedUser = localStorage.getItem('lotiq_user');
+    // if (savedUser) {
+    //   setUser(JSON.parse(savedUser));
+    // }
     setIsLoading(false);
   }, []);
 
